@@ -30,7 +30,7 @@
               <ion-item  *ngIf="!emailCtrl.valid && emailCtrl.touched"
               lines="none"
               >
-                  <p>Should be a valid email addr</p>
+                  <p>Email is invalid</p>
               </ion-item>
               <ion-item>
                 <ion-label position="floating">Password</ion-label>
@@ -45,7 +45,7 @@
               <ion-item  *ngIf="!passwordCtrl.valid && passwordCtrl.touched"
               lines="none"
               >
-                  <p>Should be at lease 6 chars</p>
+                  <p>Invalid: minimum 6 characters needed</p>
               </ion-item>
             </ion-list>
       </ion-col>
@@ -55,21 +55,31 @@
     <ion-row>
         <ion-col size-sm="6" offset-sm="3">
 
-            <ion-button type="submit" color="primary" expand="block" fill="outline"
+            <ion-button type="submit" color="dark" expand="block" 
             [disabled]="!f.valid"
             > 
             login
           </ion-button>
-          <ion-button   expand="block" (click)="onFbLogin()" >Facebook Login</ion-button>
-          <a [routerLink]="['/signup']">Signup</a>
-         
+          <div class="floStyle">
+          No account, please: <a [routerLink]="['/signup']">Signup</a>
+        </div>
         </ion-col>
         
       </ion-row>
   </ion-grid>
 </form>
 
-
+<ion-grid>
+<ion-row>
+  <ion-col>
+  <ion-button   class="fbStyle" expand="block" (click)="onFbLogin()" >
+    Facebook Login
+    <ion-icon slot="start" name="logo-facebook" >  
+    </ion-icon>
+   </ion-button>
+</ion-col>
+ </ion-row>
+</ion-grid>
 
 </ion-content>
 <!-- <ion-footer class="ion-no-border">

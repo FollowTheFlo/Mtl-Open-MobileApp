@@ -1,0 +1,36 @@
+ion-grid{
+    color: var(--ion-color-primary);
+   text-align: center;
+   //font-weight: bold;
+   background-color: white;
+   // --background:black;
+   // --background: rgb(224, 219, 219);
+   --background: white;
+   margin-top: 20px;
+   margin-bottom: 5px;
+   margin-left:5%;
+   margin-right:5%;
+   //  padding-top: 5px;
+   //  padding-bottom: 5px;
+   //--border-color: purple !important;
+   --min-height: 35px;
+   border-color: grey;
+   --border-radius: 1px;
+   // --border-style: 10px;
+   //border-style: solid solid double double;
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+   
+ }
+
+ .floStyle {
+     color: black;
+     font-weight: bold;
+ }
+ p {
+     color: red;
+ }
+
+ ion-button {
+    --background: #3b5998;
+    color: white;
+ }

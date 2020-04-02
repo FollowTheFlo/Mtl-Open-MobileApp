@@ -3,9 +3,7 @@
 </ion-header>
 
 <ion-content>
-  <!-- <div class="center"> -->
-   
-    <!-- </div> -->
+
     <ion-item-divider>
       <div style="width: 100%; text-align: center;">
             Day 1   
@@ -63,52 +61,5 @@
       </ion-item>
 
   </ion-item-group>
-<!-- </div> -->
-  <!-- <ion-list *ngIf="playerTournaments.length > 0">
-    <ion-item *ngFor="let tournament of playerTournaments">
-     
-        <div class="red" *ngIf="tournament.isFull"> 
-          <ion-label>{{ tournament.title  }}   -   Full </ion-label>
-          <ion-toggle disabled>
-          </ion-toggle>
 
-        </div>
-        <div class="green" *ngIf="!tournament.isLocal"> 
-          <ion-label>{{ tournament.title  }}    -   Already Registered </ion-label>
-
-        </div>
-        
-      
-      <div *ngIf="tournament.isLocal && !tournament.isFull">
-        <ion-label>{{ tournament.title  }}</ion-label>
-        <ion-toggle style="margin-left:1rem;" #checkbox [checked]="tournament.isSelected" (click)="onToggleClick(checkbox,tournament._id,tournament.day,!checkbox.checked)">
-        </ion-toggle>
-    </div>
-    </ion-item>
-  
-  </ion-list> -->
-
-
-
-  <!-- <div class="center">
-    <mat-accordion multi="true" *ngIf="playerTournaments.length > 0">
-      <mat-expansion-panel *ngFor="let tournament of playerTournaments">
-        <mat-expansion-panel-header>
-          Day:{{ tournament.day }} - Category:  <b>  {{ tournament.title  }} </b>
-          <div class="red" *ngIf="tournament.isFull"> Full</div>
-          <div class="green" *ngIf="!tournament.isLocal"> Already Registered</div>
-          <div *ngIf="tournament.isLocal && !tournament.isFull">
-
-          <ion-toggle style="margin-left:1rem;" #checkbox [checked]="tournament.isSelected" (click)="onToggleClick(checkbox,tournament._id,tournament.day,!checkbox.checked)">
-          </ion-toggle>
-        </div>
-        </mat-expansion-panel-header>
-        <p *ngIf="!tournament.isLocal"> Already Registered</p>
-        <p *ngIf="tournament.isFull"> Full!</p>
-        <p>Price: {{ tournament.price }} $CA</p>
-    
-      </mat-expansion-panel>
-    </mat-accordion>
-    <p class="info-text mat-body-1" *ngIf="playerTournaments.length <= 0">Loading</p>
-    </div> -->
 </ion-content>

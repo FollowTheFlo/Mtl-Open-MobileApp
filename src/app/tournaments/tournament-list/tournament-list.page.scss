@@ -1,0 +1,128 @@
+ion-item-group ion-item{
+    color: black;
+   text-align: center;
+   //font-weight: bold;
+   //background-color: white;
+   // --background:black;
+   // --background: rgb(224, 219, 219);
+   --background: white;
+   margin-top: 5px;
+   margin-bottom: 5px;
+   margin-left:5%;
+   margin-right:5%;
+   //  padding-top: 5px;
+   //  padding-bottom: 5px;
+   //--border-color: purple !important;
+   --min-height: 35px;
+   border-color: grey;
+   --border-radius: 1px;
+   // --border-style: 10px;
+   //border-style: solid solid double double;
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+   
+ }
+ 
+ ion-note.red {
+   color: red;
+   // text-align: center;
+ }
+ 
+ ion-note.green {
+   color: green;
+   // text-align: center;
+ }
+
+ ion-icon {
+   color: black;
+ }
+ 
+ .redText {
+   color: red;
+ }
+ 
+ .blackText {
+   color: black;
+ }
+ 
+ ion-item-divider {
+   margin-top: 5px;
+   justify-content: center;
+   //text-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px black;
+   text-align: center;
+   background: rgb(99, 95, 95);
+   //background: darkgray;
+   color:white;
+   font-weight: bold;
+ }
+ 
+ // ion-item-divider ion-label{
+ //   text-align: center;
+ //   background: green;
+ //   color:red;
+ // }
+ 
+   .bg_class{
+     --background: linear-gradient(blue, red) !important;
+   }
+ 
+ //   :root {
+ //     --ion-item-background-color: #1f1e1e;
+ //     --ion-background-color: #1f1e1e;
+ // }
+ 
+ .bg-style {
+   background-color: yellow;
+ }
+ 
+ .center {
+     /* display: flex; */
+     //@extend: center;
+     text-align: center;
+     margin-left: 15%;
+     margin-right: 15%;
+   }
+   
+   h2 {
+  
+     text-align: center;
+   }
+   
+   .mainButton {
+     margin-top:1rem;
+     display: flex;
+     margin-left: auto;
+     margin-right: auto;
+   }
+   
+   .green {
+     color: green;
+     margin-right:5%;
+   }
+   
+   .red {
+     color: red;
+     text-align:right;
+     margin-left:1rem;
+   }
+   
+   @media screen and (max-width: 600px) {
+     .centerCard {
+       margin-top:1rem;
+       justify-content: center;
+       margin-left: 0%;
+       margin-right: 0%;
+     }
+     
+     .center {
+       /* display: flex; */
+       justify-content: center;
+       margin-left: 0%;
+       margin-right: 0%;
+     }
+   
+     .invoice-card {
+       max-width: 100%;
+       margin:1rem;
+     }
+   
+   }

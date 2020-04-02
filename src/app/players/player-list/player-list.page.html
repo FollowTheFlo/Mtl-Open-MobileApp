@@ -20,9 +20,17 @@
     
   
     <ion-card-content>
-      <ion-button fill="outline" slot="end" [routerLink]="['/selection-list', player._id]">register to Tournament</ion-button>
-      
+     
+      <ion-button color="dark" horizontal="start" fill="outline" >Edit Profile</ion-button>
+       <ion-button color="dark" horizontal="end" fill="solid" [routerLink]="['/selection-list', player._id]">register to Tournament</ion-button>
+       
+
     </ion-card-content>
+    <!-- <ion-footer>
+      
+        <ion-button slot="end" fill="outline" [routerLink]="['/selection-list', player._id]">register to Tournament</ion-button>
+     
+    </ion-footer> -->
     
   </ion-card>
 <!-- 

@@ -24,7 +24,7 @@
             <ion-item  *ngIf="!usernameCtrl.valid && usernameCtrl.touched"
             lines="none"
             >
-                <p>Should be a valid username</p>
+                <p>Invalid: Minimum 2 chars needed</p>
             </ion-item>
 
               <ion-item>
@@ -41,7 +41,7 @@
               <ion-item  *ngIf="!emailCtrl.valid && emailCtrl.touched"
               lines="none"
               >
-                  <p>Should be a valid email addr</p>
+                  <p>Invalid email address</p>
               </ion-item>
               <ion-item>
                 <ion-label position="floating">Password</ion-label>
@@ -56,27 +56,35 @@
               <ion-item  *ngIf="!passwordCtrl.valid && passwordCtrl.touched"
               lines="none"
               >
-                  <p>Should be at lease 6 chars</p>
+                  <p>Invalid: Minimum 6 chars needed</p>
               </ion-item>
             </ion-list>
       </ion-col>
 
     </ion-row>
-
     <ion-row>
-        <ion-col size-sm="6" offset-sm="3">
+      <ion-col size-sm="6" offset-sm="3">
+    
+          <ion-button type="submit" expand="block" color="dark"
+          [disabled]="!f.valid"> 
+          Signup
+        </ion-button>
 
-            <ion-button type="submit" color="primary" expand="block" fill="outline"
-            [disabled]="!f.valid"
-            > 
-            Signup
-          </ion-button>
-          <ion-button   expand="block" (click)="onFbSignup()" >Facebook Signup</ion-button>
-         
-        </ion-col>
-        
-      </ion-row>
+      </ion-col>
+      
+    </ion-row>
+
   </ion-grid>
 </form>
 
+<ion-grid>
+<ion-row>
+  <ion-col size-sm="6" offset-sm="3">
+
+    <ion-button   class="fbStyle" expand="block" (click)="onFbSignup()" >Facebook Signup</ion-button>
+   
+  </ion-col>
+  
+</ion-row>
+</ion-grid>
 </ion-content>

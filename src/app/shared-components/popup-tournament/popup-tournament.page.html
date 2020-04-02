@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button fill="clear" color="light" (click)="closeModal()">
+      <ion-icon name="close-circle"></ion-icon>
+    </ion-button>
+    <ion-title>Category#{{ tournament.index}} -  Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>#{{ tournament.index}} - {{ tournament.title}}</ion-card-title>
+    <ion-card-subtitle>Day {{ tournament.day}} at {{ tournament.startTime}}</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+
+   Day {{ tournament.day}}
+   Start at {{ tournament.startTime}}
+   Description: {{ tournament.day}}
+   Reward: {{ tournament.reward}}$
+   Registration price: {{ tournament.price}}$
+  </ion-card-content>
+</ion-card>
