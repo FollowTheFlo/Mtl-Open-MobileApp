@@ -1,0 +1,171 @@
+<ion-header>
+</ion-header>
+
+
+<ion-content>
+  <form #playerForm="ngForm" (ngSubmit)="onAddPlayer(playerForm)">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+            <ion-list>
+              <ion-item>
+                <ion-label position="floating">FirstName</ion-label>
+                <ion-input type="text"
+                type="text"
+                name="firstName"
+                ngModel
+                required
+                minlength="1"
+                placeholder="First Name"
+                #firstName="ngModel">
+                ></ion-input>
+                
+              </ion-item>
+              <ion-item  *ngIf="!firstName.valid && firstName.touched"
+              lines="none"
+              >
+                  <p>Should be a valid text</p>
+              </ion-item>
+  
+                <ion-item>
+                  <ion-label position="floating">LastName</ion-label>
+                  <ion-input type="text"
+                  type="text"
+                  name="lastName"
+                  ngModel
+                  required
+                  minlength="1"
+                  placeholder="Last Name"
+                  #lastName="ngModel"
+                  ></ion-input>
+                  
+                </ion-item>
+                <ion-item  *ngIf="!lastName.valid && lastName.touched"
+                lines="none"
+                >
+                    <p>Should be a valid text</p>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="floating">Ranking</ion-label>
+                  <ion-input 
+                  type="number"
+                  name="ranking"
+                  ngModel
+                  required
+                  min="100"
+                  max="9999"
+                  placeholder="Ranking"
+                  #ranking="ngModel">
+                </ion-input>
+                </ion-item>
+                <ion-item  *ngIf="!ranking.valid && ranking.touched"
+                lines="none"
+                >
+                    <p>Should be a number between 100 and 9999</p>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="floating">E-mail</ion-label>
+                  <ion-input type="email"
+                  ngModel
+                  name="email"
+                  required
+                  email
+                  #emailCtrl="ngModel"
+                  
+                  ></ion-input>
+                  <ion-item  *ngIf="!emailCtrl.valid && emailCtrl.touched"
+                  lines="none"
+                  >
+                      <p>Should be a valid email addr</p>
+                  </ion-item>
+                </ion-item>
+              </ion-list>
+        </ion-col>
+  
+      </ion-row>
+  
+      <ion-row>
+          <ion-col size-sm="6" offset-sm="3">
+  
+              <ion-button type="submit" color="primary" expand="block" fill="outline"
+              [disabled]="!playerForm.valid"
+              > 
+              Save
+            </ion-button>
+         
+           
+          </ion-col>
+          
+        </ion-row>
+    </ion-grid>
+  </form>
+  
+</ion-content>
+
+<!-- 
+
+<h2 class="center"> Fill Player Details</h2>
+<mat-card>
+  <form (submit)="onAddPlayer(playerForm)" #playerForm="ngForm">
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        name="firstName"
+        ngModel
+        required
+        minlength="1"
+        placeholder="First Name"
+        #firstName="ngModel">
+      <mat-error *ngIf="firstName.invalid">Please enter the first name</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+      matInput
+      type="text"
+      name="lastName"
+      ngModel
+      required
+      minlength="1"
+      placeholder="Last Name"
+      #lastName="ngModel">
+    <mat-error *ngIf="lastName.invalid">Please enter the last name.</mat-error>
+  </mat-form-field>
+    <mat-form-field>
+      <input
+      matInput
+      type="number"
+      name="ranking"
+      ngModel
+      required
+      min="100"
+      max="9999"
+      placeholder="Ranking"
+      #ranking="ngModel"
+      >
+    <mat-error *ngIf="ranking.invalid">Please enter player ranking</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+      matInput
+      [(ngModel)]="userEmail" 
+      type="email"
+      name="email"
+      ngModel
+      required
+      minlength="3"
+      placeholder="Email"
+      #email="ngModel"
+      pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+      >
+    <mat-error *ngIf="email.invalid">Please enter email</mat-error>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="accent"
+      type="submit">Save Player</button>
+  </form>
+</mat-card>
+ -->
+

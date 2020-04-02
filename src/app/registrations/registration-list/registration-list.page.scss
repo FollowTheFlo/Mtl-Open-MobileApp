@@ -1,0 +1,81 @@
+.titre {
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* .invoice-card {
+    max-width: 50%;
+    margin:1rem;
+  } */
+  
+  .mainButton {
+    margin-top:1rem;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+  
+  }
+  
+  /* .center {
+    display: flex;
+    justify-content: center;
+  } */
+  
+  .paymentOK {
+    color: green;
+  }
+  
+  .paymentKO {
+    color: red;
+  }
+  
+  .centerCard {
+    margin-top:1rem;
+    justify-content: center;
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+  
+  .center {
+    /* display: flex; */
+    justify-content: center;
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+  
+  h2 {
+    display: flex;
+    justify-content: center;
+  }
+
+  .showLine{
+    border: 1px solid black;
+ }
+  
+  @media screen and (max-width: 600px) {
+
+    .showLine{
+        border: 0.5px solid black;
+        margin-left: 3%;
+        margin-right: 3%;
+     }
+
+    .centerCard {
+      margin-top:1rem;
+      justify-content: center;
+      margin-left: 0%;
+      margin-right: 0%;
+    }
+    
+    .center {
+      /* display: flex; */
+      justify-content: center;
+      text-align: center;
+    }
+  
+    .invoice-card {
+      max-width: 100%;
+      margin:1rem;
+    }
+  
+  }

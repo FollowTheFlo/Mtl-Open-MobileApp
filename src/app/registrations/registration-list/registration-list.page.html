@@ -1,0 +1,61 @@
+<ion-header>
+</ion-header>
+
+<ion-content>
+
+  <mat-spinner style="margin:0 auto;" *ngIf="isSelLoading"></mat-spinner>
+  <!-- <mat-divider></mat-divider> -->
+   <button  class="mainButton"  *ngIf="selectedTournaments !== undefined && selectedTournaments.length > 0" class="mainButton" mat-raised-button color="primary" [routerLink]="['/checkout']" >go to Payement</button>
+   <!-- <mat-accordion multi="true" >
+
+   
+   <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      Florent
+    </mat-expansion-panel-header>
+    Letendre
+   </mat-expansion-panel>
+  </mat-accordion> -->
+
+  
+<mat-accordion multi="true" *ngIf="selectedTournaments && selectedTournaments !== undefined && selectedTournaments.length > 0">
+  <mat-expansion-panel *ngFor="let selectedTournament of selectedTournaments">
+    <mat-expansion-panel-header>
+      Player: {{ selectedTournament.player.firstName }}
+      category {{ selectedTournament.tournament.title}}
+
+    </mat-expansion-panel-header>
+
+  </mat-expansion-panel>
+</mat-accordion>
+<h3 class="center" *ngIf="selectedTournaments === undefined || selectedTournaments.length <= 0">No current selection</h3>
+
+<div class='showLine'></div>
+
+<h2 class="center" >Previous Registrations</h2>
+<div *ngIf="registrations && registrations !== undefined">
+<div *ngIf="registrations.length > 0">
+  <h3>{{registrations.length}} registrations </h3>
+  <mat-spinner *ngIf="isRegLoading"></mat-spinner>
+  <mat-accordion multi="true" *ngIf="registrations !== undefined && registrations.length > 0">
+    <mat-expansion-panel *ngFor="let registration of registrations">
+      <mat-expansion-panel-header>
+        Player: {{ registration.player.firstName }} {{ registration.player.lastName  }}
+        in Category {{ registration.tournament.index }} : {{ registration.tournament.title  }}
+
+      </mat-expansion-panel-header>
+      <p>Payment method: {{registration.paymentType}}</p>
+      <p class="paymentOK" *ngIf="registration.hasPayed">Payement done</p>
+      <p class="paymentKO" *ngIf="!registration.hasPayed">Payement to be confirmd by Admin</p>
+      <p>create on: {{ registration.createdAt }}</p>
+      <p>{{ registration.price }}</p>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+</div>
+<h3 class="center" *ngIf="registrations.length === 0">No registrations</h3>
+
+
+</ion-content>
+

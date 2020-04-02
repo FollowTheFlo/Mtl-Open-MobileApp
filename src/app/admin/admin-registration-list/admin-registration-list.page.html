@@ -1,0 +1,156 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-buttons slot="start">
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Admin Mgmt</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <mat-tab-group>
+    <mat-tab label="Registrations">
+      <mat-spinner style="margin:0 auto;" *ngIf="isRegLoading"></mat-spinner>
+  <div *ngIf="registrations !== undefined && registrations.length > 0">
+  
+      <h2 class="titre">Admin Registrations Mgmt</h2>
+  
+  
+      <h3 class="titre" *ngIf="registrations.length"> {{registrations.length}} registrations</h3>
+  
+    <mat-form-field class="titre">
+      <mat-label>Sort by</mat-label>
+      <mat-select (selectionChange)="onSelectChange(selectedFilter)" [(ngModel)]="selectedFilter"  name="filter">
+        <mat-option *ngFor="let filter of filterList" [value]="filter">
+          {{filter}}
+        </mat-option>
+  
+      </mat-select>
+    </mat-form-field>
+  
+    <div class="center">
+    <mat-accordion multi="true" *ngIf="registrations !== undefined && registrations.length > 0">
+      <mat-expansion-panel *ngFor="let registration of registrations">
+        <mat-expansion-panel-header>
+  
+          <div *ngIf="!registration.canceled">
+            <p *ngIf="registration.invoice.hasPayed">
+              {{ registration.player.lastName }} {{ registration.player.firstName  }}
+            --> category {{ registration.tournament.index }}  --> {{registration.paymentType}} --> PAYED
+            </p>
+            <p *ngIf="!registration.invoice.hasPayed">
+              {{ registration.player.lastName }} {{ registration.player.firstName  }}
+            --> category {{ registration.tournament.index }}  --> {{registration.paymentType}} --> NOT PAYED
+           </p>
+          </div>
+          <div *ngIf="registration.canceled">
+            <p *ngIf="registration.invoice.hasPayed">
+              {{ registration.player.lastName }} {{ registration.player.firstName  }}
+            --> category {{ registration.tournament.index }}  --> {{registration.paymentType}} --> PAYED and CANCELED
+            </p>
+            <p *ngIf="!registration.invoice.hasPayed">
+              {{ registration.player.lastName }} {{ registration.player.firstName  }}
+            --> category {{ registration.tournament.index }}  --> {{registration.paymentType}} --> CANCELED
+           </p>
+          </div>
+  
+  
+        </mat-expansion-panel-header>
+        <p>Registration date: {{ registration.createdAt }}</p>
+        <p>Registration ID: {{ registration._id }}</p>
+        <p>Invoice ID: {{ registration.invoice._id }}</p>
+  
+        <p>{{ registration.price }}</p>
+        <button *ngIf="!registration.canceled" mat-raised-button color="accent" (click)="onCancelRegistration(registration._id)"  >Cancel</button>
+        <!-- <button *ngIf="!registration.hasPayed && !registration.canceled" mat-raised-button color="accent" (click)="onConfirmPayment(registration._id)" >Confirm Payment</button> -->
+        <button mat-raised-button color="primary" (click)="onShowHistory('registration',registration._id)"  >History</button>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <p class="info-text mat-body-1" *ngIf="registrations.length <= 0">No registrations</p>
+    </div>
+  
+  
+    </div>
+  
+  </mat-tab>
+  <mat-tab label="Invoices">
+  
+    <h2 class="titre">Admin Invoices Mgmt</h2>
+    <h3 class="titre" *ngIf="allInvoices.length"> {{allInvoices.length}} invoices</h3>
+  
+    <mat-form-field class="titre">
+      <mat-label>Sort by</mat-label>
+      <mat-select (selectionChange)="onInvoiceSortChange(selectedFilter)" [(ngModel)]="selectedFilter"  name="filter">
+        <mat-option *ngFor="let filter of invoiceSortList" [value]="filter">
+          {{filter}}
+        </mat-option>
+  
+      </mat-select>
+    </mat-form-field>
+  
+  <div *ngFor="let invoice of allInvoices">
+    <div class="centerCard">
+    <mat-card class="invoice-card">
+      <mat-card-title-group>
+      <mat-card-title>
+        {{ invoice.totalPrice }}$CA with {{ invoice.paymentType }}
+  
+      </mat-card-title>
+      <mat-card-subtitle>{{ invoice.createdAt }} - {{ invoice._id}}
+        <p class="paymentOK" *ngIf="(invoice.hasPayed && !invoice.canceled)">Payement done</p>
+        <p class="paymentKO" *ngIf="(!invoice.hasPayed && !invoice.canceled)">Payement to be confirmed by Admin</p>
+        <p class="paymentKO" *ngIf="(invoice.hasPayed && invoice.canceled)">Payement done then canceled</p>
+        <p class="paymentKO" *ngIf="(!invoice.hasPayed && invoice.canceled)">Canceled</p>
+  
+  
+      </mat-card-subtitle>
+    </mat-card-title-group>
+      <mat-card-content>
+  
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{invoice.registrationsList.length}} Registration(s)
+            </mat-panel-title>
+  
+  
+  
+          </mat-expansion-panel-header>
+  
+          <div *ngFor="let registration of invoice.registrationsList" >
+          
+            <br>
+            <p>Player: {{ registration.player.firstName }} {{ registration.player.lastName  }}</p>
+            <p>category {{ registration.tournament.index }} : {{ registration.tournament.title  }}</p>
+            <div *ngIf="registration.canceled" ><h3 color="accent">Canceled</h3></div>
+            <mat-card-actions align="end">
+              <button  *ngIf="!registration.canceled" mat-raised-button color="warn" (click)="onCancelRegistration(registration._id)"  >Cancel Registration</button>
+              <button  mat-raised-button color="primary" (click)="onShowHistory('registration',registration._id)"  >Registration History</button>
+            </mat-card-actions>
+          </div>
+  
+        </mat-expansion-panel>
+  
+  
+    </mat-card-content>
+    <mat-card-actions align="end">
+  
+      <button *ngIf="!invoice.canceled" mat-raised-button color="warn" (click)="onCancelInvoice(invoice._id)"  >Cancel Invoice</button>
+      <button style="background-color: yellow;color:black;" *ngIf="!invoice.hasPayed && !invoice.canceled" mat-raised-button  (click)="onConfirmInvoicePayment(invoice._id)" >Confirm Invoice Payment</button>
+      <button mat-raised-button color="primary" (click)="onShowHistory('invoice',invoice._id)"  >Invoice History</button>
+     </mat-card-actions>
+    </mat-card>
+  
+    </div>
+  </div>
+  
+  
+  </mat-tab>
+  
+  </mat-tab-group>
+  
+  
+  
+</ion-content>

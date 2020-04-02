@@ -1,0 +1,47 @@
+.invoice-card {
+    max-width: 60%;
+    margin:1rem;
+  }
+  
+  .mainButton {
+    margin-top:1rem;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+  
+  }
+  
+  .center {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .paymentOK {
+    color: green;
+  }
+  
+  .paymentKO {
+    color: red;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .invoice-card {
+      max-width: 100%;
+      margin-top:1rem;
+      /* margin-left: 0%;
+      margin-right: 0%; */
+    }
+    
+    .center {
+      /* display: flex; */
+      justify-content: center;
+      margin-left: 0%;
+      margin-right: 0%;
+    }
+  
+    .invoice-card {
+      max-width: 100%;
+      margin:1rem;
+    }
+  
+  }

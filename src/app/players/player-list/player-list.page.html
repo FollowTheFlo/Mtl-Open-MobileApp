@@ -1,0 +1,61 @@
+<ion-header>
+</ion-header>
+
+<ion-content>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)=onCreatePlayer()>
+      <ion-icon name="add">Player</ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+    <!-- <p class="center">Please create a Player profile to register tournaments</p>
+    <ion-button  (click)=onCreatePlayer()>Create Player</ion-button>
+   -->
+
+  <ion-card *ngFor="let player of players">
+    <ion-card-header>
+      <ion-card-title>{{ player.firstName }} {{ player.lastName }}</ion-card-title>
+      <ion-card-subtitle>{{ player.email }} - Ranking: {{ player.ranking }}</ion-card-subtitle>
+      
+    </ion-card-header>
+    
+  
+    <ion-card-content>
+      <ion-button fill="outline" slot="end" [routerLink]="['/selection-list', player._id]">register to Tournament</ion-button>
+      
+    </ion-card-content>
+    
+  </ion-card>
+<!-- 
+
+<mat-spinner style="margin:0 auto;" *ngIf="isLoading"></mat-spinner>
+<button *ngIf="players.length > 0" class="mainButton" mat-raised-button color="primary" [routerLink]="['/create']">Add Player</button>
+<div *ngIf="players === undefined ||players.length === 0">
+  <p class="center">Please create a Player profile to register tournaments</p>
+  <button class="center"  mat-raised-button color="primary" [routerLink]="['/create']">Create Player</button>
+</div>
+<div class="center" *ngFor="let player of players">
+<mat-card class="player-card">
+  <mat-card-title-group>
+  <mat-card-title>
+    {{ player.firstName }} {{ player.lastName }}
+
+  </mat-card-title>
+  <mat-card-subtitle>{{ player.email }} - Ranking: {{ player.ranking }}</mat-card-subtitle>
+</mat-card-title-group>
+  <mat-card-content>
+    <p>{{ player.dob }}</p>
+
+</mat-card-content>
+<mat-card-actions>
+  <button mat-button>EDIT</button>
+  <button mat-button>REMOVE</button>
+
+  <button mat-raised-button color="primary"[routerLink]="['/selection', player._id]">SELECT TOURNAMENTS</button>
+</mat-card-actions>
+</mat-card>
+
+</div> -->
+
+
+</ion-content>
+

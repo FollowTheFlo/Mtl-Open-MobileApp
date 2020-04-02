@@ -1,0 +1,44 @@
+<ion-header>
+</ion-header>
+
+<ion-content>
+
+  <mat-spinner style="margin:0 auto;" *ngIf="isLoading"></mat-spinner>
+
+  <div class="center" *ngFor="let invoice of invoiceList">
+  <mat-card class="invoice-card">
+    <mat-card-title-group>
+    <mat-card-title>
+      
+      {{ invoice.totalPrice }}$CA with {{ invoice.paymentType }}
+  
+    </mat-card-title>
+    <mat-card-subtitle>{{ invoice.createdAt }}
+      <p class="paymentOK" *ngIf="invoice.hasPayed && !invoice.canceled">Payement done</p>
+      <p class="paymentKO" *ngIf="!invoice.hasPayed && !invoice.canceled">Payement to be confirmd by Admin</p>
+      <div class="paymentKO" *ngIf="invoice.canceled">CANCELED BY ADMIN</div>
+  
+    </mat-card-subtitle>
+  </mat-card-title-group>
+    <mat-card-content>
+      <h3 class="center">Registrations details</h3>
+  
+      <div *ngFor="let registration of invoice.registrationsList" >
+       
+        <br>
+        <p>Player: {{ registration.player.firstName }} {{ registration.player.lastName  }}</p>
+        <p>category {{ registration.tournament.index }} : {{ registration.tournament.title  }}</p>
+        <p class="paymentKO" *ngIf="registration.canceled">canceled by admin</p>
+      </div>
+  </mat-card-content>
+  <!-- <mat-card-actions>
+  
+    <button mat-button>Show Registrations</button>
+   </mat-card-actions> -->
+  </mat-card>
+  
+  </div>
+  <h3 class="center" *ngIf="invoiceList.length <= 0">No invoices</h3>
+  
+</ion-content>
+
