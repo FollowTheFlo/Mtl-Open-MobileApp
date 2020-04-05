@@ -5,35 +5,49 @@
 
   <mat-spinner style="margin:0 auto;" *ngIf="isSelLoading"></mat-spinner>
   <!-- <mat-divider></mat-divider> -->
-   <button  class="mainButton"  *ngIf="selectedTournaments !== undefined && selectedTournaments.length > 0" class="mainButton" mat-raised-button color="primary" [routerLink]="['/checkout']" >go to Payement</button>
-   <!-- <mat-accordion multi="true" >
-
-   
-   <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      Florent
-    </mat-expansion-panel-header>
-    Letendre
-   </mat-expansion-panel>
-  </mat-accordion> -->
+   <!-- <button  class="mainButton"  *ngIf="selectedTournaments !== undefined && selectedTournaments.length > 0" class="mainButton" mat-raised-button color="primary" [routerLink]="['/checkout']" >
+     go to Payement</button> -->
+   <ion-button class="payButton" expand="block" 
+   *ngIf="selectedTournaments !== undefined && selectedTournaments.length > 0"
+   [routerLink]="['/checkout']" routerDirection="forward">
+     Go to Payment
+    </ion-button>
+   <ion-item-divider>
+    <div style="width: 100%; text-align: center;">
+      Current Selections
+    </div>
+  </ion-item-divider>  
+  
+<div *ngIf="selectedTournaments && selectedTournaments !== undefined && selectedTournaments.length > 0">
+<ion-item *ngFor="let selectedTournament of selectedTournaments">
 
   
-<mat-accordion multi="true" *ngIf="selectedTournaments && selectedTournaments !== undefined && selectedTournaments.length > 0">
-  <mat-expansion-panel *ngFor="let selectedTournament of selectedTournaments">
-    <mat-expansion-panel-header>
-      Player: {{ selectedTournament.player.firstName }}
-      category {{ selectedTournament.tournament.title}}
+  <ion-label class="ion-text-center" >
+  {{ selectedTournament.player.firstName }} {{ selectedTournament.player.lastName }}
+  <div>#{{selectedTournament.tournament.index}} - {{selectedTournament.tournament.title}}</div>
+  </ion-label>
+  <ion-buttons slot="end">
 
-    </mat-expansion-panel-header>
+    <ion-button [routerLink]="['/selection-list', selectedTournament.player._id]" routerDirection="forward">
+    <ion-icon name="close-circle"  ></ion-icon>
+  </ion-button>
+  </ion-buttons>
+  
+  </ion-item>
+</div>
 
-  </mat-expansion-panel>
-</mat-accordion>
-<h3 class="center" *ngIf="selectedTournaments === undefined || selectedTournaments.length <= 0">No current selection</h3>
+<h3 class="center" *ngIf="selectedTournaments === undefined || selectedTournaments.length <= 0">
+  No tournaments currently Selected
+</h3>
 
-<div class='showLine'></div>
 
-<h2 class="center" >Previous Registrations</h2>
-<div *ngIf="registrations && registrations !== undefined">
+<ion-item-divider>
+  <div style="width: 100%; text-align: center;">
+    Previous Registrations 
+  </div>
+</ion-item-divider>
+
+<!-- <div *ngIf="registrations && registrations !== undefined">
 <div *ngIf="registrations.length > 0">
   <h3>{{registrations.length}} registrations </h3>
   <mat-spinner *ngIf="isRegLoading"></mat-spinner>
@@ -53,7 +67,38 @@
     </mat-expansion-panel>
   </mat-accordion>
 </div>
+</div> -->
+
+<div *ngIf="registrations.length > 0">
+  <ion-card *ngFor="let registration of registrations">
+    <ion-card-header>
+      <ion-card-title > {{ registration.player.firstName }} {{ registration.player.lastName  }}</ion-card-title>
+      <ion-card-subtitle>category#{{ registration.tournament.index }} <br>
+        {{ registration.tournament.title  }}
+
+
+      </ion-card-subtitle>
+      
+    </ion-card-header>
+    <ion-card-content>
+      <hr>
+      <div class="floLine">
+        <h2>Status</h2>
+        <h1 class="paymentOK" *ngIf="registration.hasPayed">Payement done
+        </h1>
+        <h1 class="paymentKO" *ngIf="!registration.hasPayed">Payement to be confirmed by Admin</h1>
+        <h2>Payment method</h2>
+        <h1>{{registration.paymentType}}</h1>
+        <h2>Price</h2>
+        <h1>{{ registration.price }}$</h1>
+        <h2>Registration Date</h2>
+        <h1>{{ registration.createdAt }}</h1>
+      </div>
+    </ion-card-content>
+    
+  </ion-card>
 </div>
+
 <h3 class="center" *ngIf="registrations.length === 0">No registrations</h3>
 
 

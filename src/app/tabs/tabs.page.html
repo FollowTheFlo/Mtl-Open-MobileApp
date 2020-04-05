@@ -37,7 +37,7 @@
         <ion-label>Invoice</ion-label>
       </ion-tab-button>
 
-      <ion-tab-button tab="registration-list" [disabled]="!isAuth">
+      <ion-tab-button tab="checkout" [disabled]="!isAuth">
         <ion-icon name="cart" ></ion-icon>
             <ion-label>Cart</ion-label>
             <ion-badge *ngIf="cartItemsNumber > 0">{{cartItemsNumber}}</ion-badge>

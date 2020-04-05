@@ -2,6 +2,15 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circular"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <ion-fab vertical="top" horizontal="end" slot="fixed">
     <ion-fab-button (click)=onCreatePlayer()>
       <ion-icon name="add">Player</ion-icon>
@@ -26,11 +35,6 @@
        
 
     </ion-card-content>
-    <!-- <ion-footer>
-      
-        <ion-button slot="end" fill="outline" [routerLink]="['/selection-list', player._id]">register to Tournament</ion-button>
-     
-    </ion-footer> -->
     
   </ion-card>
 <!-- 

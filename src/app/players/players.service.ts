@@ -55,7 +55,13 @@ export class PlayersService {
 
   getPlayers() {
     return this.graphqlService.getplayers().pipe(
-      map((result) => result.data.getUserPlayers.players),
+      map((result) => {
+        if (result.errors && result.errors[0]) {
+          console.log('login error data: ', result.errors[0].message);
+          throw new Error(result.errors[0].message);
+        }
+        return result.data.getUserPlayers.players;
+      }),
       map((resData) => {
         console.log('getplayers Flooooooo: ', resData);
         const players = [];

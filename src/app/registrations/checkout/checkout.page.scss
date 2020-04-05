@@ -1,14 +1,89 @@
+ion-icon {
+  font-size: 30px;
+  color: darkred;
+}
 
-::ng-deep .mat-horizontal-stepper-content[aria-expanded="false"] {
-    width: 0px !important;
-  }
-  
-.invoice-card {
-    max-width: 50%;
-    margin:1rem;
-  }
+.payButton {
+  font-size: 20px;
+  // margin-top: 10px;
+  // margin-bottom: 10px;
+}
 
-  .titre {
+ion-item.creditCardCard on-card-header {
+  box-shadow:none;
+  color: blue;
+  --background: pink;
+}
+
+ion-item{
+  color: black;
+ text-align: center;
+ //font-weight: bold;
+ //background-color: white;
+ // --background:black;
+ // --background: rgb(224, 219, 219);
+ --background: white;
+//  margin-top: 5px;
+//  margin-bottom: 5px;
+ margin-left:5%;
+ margin-right:5%;
+ //  padding-top: 5px;
+ //  padding-bottom: 5px;
+ //--border-color: purple !important;
+ --min-height: 35px;
+ border-color: grey;
+ --border-radius: 1px;
+ // --border-style: 10px;
+ //border-style: solid solid double double;
+ //box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ 
+}
+
+
+ion-card-title {
+  //font-size: 25px;
+  text-align: center;
+  color:white;
+}
+
+// ion-card ion-card-header ion-card-subtitle {
+//   font-size: 25px;
+//   text-align: center;
+//   background: rgb(99, 95, 95);
+//   color:white;
+// }
+
+.floLine {
+  border: black;
+}
+
+.priceStyle {
+  font-weight:bold;
+}
+
+ion-card ion-card-header {
+  border-bottom: 5px solid black;
+  background: rgb(99, 95, 95);
+}
+
+ion-card-subtitle {
+  //font-size: 25px;
+  text-align: center;
+  color:black;
+}
+
+
+ion-item-divider {
+  margin-top: 5px;
+  justify-content: center;
+  //text-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px black;
+  text-align: center;
+  background: rgb(99, 95, 95);
+  color:white;
+  font-weight: bold;
+}
+
+.titre {
     display: flex;
     justify-content: center;
   }
@@ -33,10 +108,12 @@
   
   .paymentOK {
     color: green;
+    justify-content: center;
   }
   
   .paymentKO {
     color: red;
+    justify-content: center;
   }
   
   .centerCard {
@@ -53,19 +130,29 @@
     margin-right: 15%;
   }
   
-  h2 {
+  h1 {
     display: flex;
     justify-content: center;
+    color: black;
   }
 
-  .cardStyle {
-    outline-style: solid;
-    padding: 5px;
-    margin-top: 10px;
-    border-width: 1px;
+  h2 {
+    display: flex;
+    justify-content: left;
   }
 
+  .showLine{
+    border: 1px solid black;
+ }
+  
   @media screen and (max-width: 600px) {
+
+    .showLine{
+        border: 0.5px solid black;
+        margin-left: 3%;
+        margin-right: 3%;
+     }
+
     .centerCard {
       margin-top:1rem;
       justify-content: center;
@@ -76,13 +163,12 @@
     .center {
       /* display: flex; */
       justify-content: center;
-      margin-left: 0%;
-      margin-right: 0%;
+      text-align: center;
     }
-
+  
     .invoice-card {
       max-width: 100%;
       margin:1rem;
     }
-
+  
   }

@@ -1,2 +1,5 @@
 node_modules/
 plugins/
+android/
+resources/
+www/

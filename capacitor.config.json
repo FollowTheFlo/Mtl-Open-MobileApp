@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "MobileApp",
+  "appId": "mtl.prestige.starter",
+  "appName": "MtlOpen",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

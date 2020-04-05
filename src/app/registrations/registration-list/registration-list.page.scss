@@ -1,3 +1,78 @@
+ion-icon {
+  font-size: 30px;
+  color: darkred;
+}
+
+.payButton {
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+ion-item{
+  color: black;
+ text-align: center;
+ //font-weight: bold;
+ //background-color: white;
+ // --background:black;
+ // --background: rgb(224, 219, 219);
+ --background: white;
+ margin-top: 5px;
+ margin-bottom: 5px;
+ margin-left:5%;
+ margin-right:5%;
+ //  padding-top: 5px;
+ //  padding-bottom: 5px;
+ //--border-color: purple !important;
+ --min-height: 35px;
+ border-color: grey;
+ --border-radius: 1px;
+ // --border-style: 10px;
+ //border-style: solid solid double double;
+ box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ 
+}
+
+
+ion-card-title {
+  //font-size: 25px;
+  text-align: center;
+  color:white;
+}
+
+// ion-card ion-card-header ion-card-subtitle {
+//   font-size: 25px;
+//   text-align: center;
+//   background: rgb(99, 95, 95);
+//   color:white;
+// }
+
+.floLine {
+  border: black;
+}
+
+ion-card ion-card-header {
+  border-bottom: 5px solid black;
+  background: rgb(99, 95, 95);
+}
+
+ion-card-subtitle {
+  //font-size: 25px;
+  text-align: center;
+  color:black;
+}
+
+
+ion-item-divider {
+  margin-top: 5px;
+  justify-content: center;
+  //text-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px black;
+  text-align: center;
+  background: rgb(99, 95, 95);
+  color:white;
+  font-weight: bold;
+}
+
 .titre {
     display: flex;
     justify-content: center;
@@ -23,10 +98,12 @@
   
   .paymentOK {
     color: green;
+    justify-content: center;
   }
   
   .paymentKO {
     color: red;
+    justify-content: center;
   }
   
   .centerCard {
@@ -43,9 +120,15 @@
     margin-right: 15%;
   }
   
-  h2 {
+  h1 {
     display: flex;
     justify-content: center;
+    color: black;
+  }
+
+  h2 {
+    display: flex;
+    justify-content: left;
   }
 
   .showLine{

@@ -2,9 +2,92 @@
 </ion-header>
 
 <ion-content>
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!-- <ion-grid *ngFor="let invoice of invoiceList">
+    <ion-row>
+      <ion-col> -->
+        <ion-card *ngFor="let invoice of invoiceList">
+          <ion-card-header>
+            <ion-card-title>{{ invoice.totalPrice }}$CA by {{ invoice.paymentType }}</ion-card-title>
+            <ion-card-subtitle>Price: {{ invoice.totalPrice }} $CA</ion-card-subtitle>
+          
+
+
+          </ion-card-header>
+          
+        
+          <ion-card-content>
+            <h1 class="paymentOK" *ngIf="invoice.hasPayed && !invoice.canceled">Payement done</h1>
+            <h1 class="paymentKO" *ngIf="!invoice.hasPayed && !invoice.canceled">Payement to be confirmed by Admin</h1>
+            <div class="paymentKO" *ngIf="invoice.canceled">
+              <h1>CANCELED BY ADMIN</h1>
+            </div>
+            
+            <h2>Created on  </h2>
+            <h2>{{ invoice.createdAt }}</h2>
+        
+            <ion-item *ngFor="let registration of invoice.registrationsList">
+          
+            
+              <ion-label class="ion-text-center" >
+              {{ registration.player.firstName }} {{ registration.player.lastName }}
+              <div>#{{registration.tournament.index}} - {{registration.tournament.title}}</div>
+              </ion-label>
+              <ion-buttons slot="start">
+            
+  
+              </ion-buttons>
+              <ion-note slot="end" >
+                {{ registration.tournament.price }}$CA
+              </ion-note>
+            </ion-item>
+            
+            <ion-item *ngIf="invoice.paymentType !== ''">
+              <ion-label class="ion-text-center" >Discount</ion-label>
+              <ion-note slot="end" >
+                - discount
+              </ion-note>
+            </ion-item>
+            <ion-item>
+              <ion-label class="ion-text-center" >
+                <span class='priceStyle'>Total Price</span>
+              </ion-label>
+              <ion-note slot="end" >
+                <span class='priceStyle'>{{ invoice.totalPrice }}  $CA</span>
+              </ion-note>
+            </ion-item>
+          
+          </ion-card-content>
+          
+        </ion-card>
+      <!-- </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        
+
+          
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid> -->
+
 
   <mat-spinner style="margin:0 auto;" *ngIf="isLoading"></mat-spinner>
-
+<!-- 
   <div class="center" *ngFor="let invoice of invoiceList">
   <mat-card class="invoice-card">
     <mat-card-title-group>
@@ -31,13 +114,10 @@
         <p class="paymentKO" *ngIf="registration.canceled">canceled by admin</p>
       </div>
   </mat-card-content>
-  <!-- <mat-card-actions>
-  
-    <button mat-button>Show Registrations</button>
-   </mat-card-actions> -->
+
   </mat-card>
   
-  </div>
+  </div> -->
   <h3 class="center" *ngIf="invoiceList.length <= 0">No invoices</h3>
   
 </ion-content>

@@ -3,329 +3,298 @@
 
 <ion-content>
 
-  <mat-horizontal-stepper linear #stepper >
-    <mat-step label="Validate" completed="false" class="center">
-      <button class="mainButton" *ngIf="hasPaymentChanged" mat-raised-button color="primary" (click)="completeStep()">Next</button>
-  
-      <h2>Validate Selections</h2>
-  
-      <div class="centerCard">
-        <mat-card class="invoice-card">
-      <mat-card-title-group>
-        <mat-card-title>
-      <h4>Price: {{ totalPrice }} $CA</h4>
-    </mat-card-title>
-    <mat-card-subtitle>
-      <h4>Taxes: unknown</h4>
-      <h4>Discount: Depending payment type</h4>
-      <mat-form-field>
-        <mat-label>Payment Type</mat-label>
-        <mat-select (selectionChange)="onSelectChange(selectedPayment)" [(ngModel)]="selectedPayment"  name="payment">
-          <mat-option *ngFor="let payment of paymentSelection" [value]="payment">
-            {{payment.type}} (-{{payment.discount}}%)
-          </mat-option>
-  
-        </mat-select>
-  
-      </mat-form-field>
-      <h2>Total Price: {{ totalFullPrice }} $CA</h2>
-   
-  <!-- <h3>Registrations Price Details</h3> -->
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <h3>Registrations Price Details</h3>
-      </mat-panel-title>
-  
-  
-  
-    </mat-expansion-panel-header>
-  
-    <div *ngFor="let selectedTournament of selectedTournaments" >
-      <hr>
-      <mat-grid-list cols="2">
-        <mat-grid-tile>
-          <div>
-            <p>Player: {{ selectedTournament.player.firstName }} {{ selectedTournament.player.lastName  }}</p>
-            <p>category {{ selectedTournament.tournament.index }} : {{ selectedTournament.tournament.title  }}</p>    
-         </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <b>{{selectedTournament.tournament.price}}$CA</b>
-        </mat-grid-tile>
-      </mat-grid-list>
-      
-       </div>
-  
-  </mat-expansion-panel>
-  
-  <!-- <mat-divider></mat-divider>
-      <div *ngFor="let selectedTournament of selectedTournaments">
-        <p>Player: {{ selectedTournament.player.firstName }}</p>
-        <p>Category {{ selectedTournament.tournament.title}}</p>
-        <p>Price {{ selectedTournament.tournament.price}}</p>
-        <mat-divider></mat-divider>
-      </div> -->
-    </mat-card-subtitle>
-    
-  </mat-card-title-group>
-  
-  </mat-card>
-  </div>
-    </mat-step>
-    <mat-step label="payment" completed="false" >
-  
-      <h2>Proceed Payment</h2>
-  
-      <div class="centerCard">
-        <mat-card class="invoice-card">
-      <mat-card-title-group>
-        <mat-card-title>
-          {{ totalFullPrice }} $CA
-          </mat-card-title>
-          <mat-card-subtitle>
-  
-  
-  
-  
-      <!-- <p>{{selectedPayment}}</p> -->
-  
-      <div *ngIf="selectedPayment.type === 'Manual Interac'">
-        <mat-checkbox #interactCheckbox ></mat-checkbox>
-  <h3>I confirm Interact transfer of {{ totalFullPrice }}$CA will be done to <b>prestige@Mtlprestige.ca</b> within 48hours </h3>
-  <p>After this step you won't be able to un-register, please contact prestige@Mtlprestige.ca for any request</p>
-        <button *ngIf="interactCheckbox.checked" class="mainButton" mat-raised-button color="primary" (click)="onClickPay(stepper)">Register</button>
-  
-  
-      </div>
-      <div *ngIf="selectedPayment.type === 'Cheque'">
-        <mat-checkbox #chequeCheckbox >I confirm cheque of {{ totalFullPrice }}$CA will be sent within 1 week to address:</mat-checkbox>
-        <h3>Prestige TT,Claude robillard,H2M2E7,Montreal</h3>
-        <p>After this step you won't be able to un-register, please contact prestige@Mtlprestige.ca for any request</p>
-        <button *ngIf="chequeCheckbox.checked" class="mainButton" mat-raised-button color="primary" (click)="onClickPay(stepper)">Register</button>
-  
-  
-      </div>
-    </mat-card-subtitle>
-  </mat-card-title-group>
-  </mat-card>
-  <div *ngIf="selectedPayment.type === 'Credit Card'">
-  
-    <ion-card>
-      <ion-card-header>
-        <ion-card-subtitle>Card Details</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        <form #f="ngForm" (ngSubmit)="payWithStripe(f)">
-          <ion-grid>
-            <ion-row>
-              <ion-col size="12">
-                  
-                    <ion-item>
-                      <ion-label position="floating">FirstName LastName</ion-label>
-                      <ion-input type="text"
-                      ngModel
-                      name="cName"
-                      required
-                      #cNameCtrl="ngModel"
-                      minlength="2"
-                      ></ion-input>
+  <ion-slides pager="false" #slides>
+    <ion-slide>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-card >
+            <ion-card-header>
+              <ion-card-title>Validate Selection</ion-card-title>
+              <ion-card-subtitle>Price: {{ totalPrice }} $CA</ion-card-subtitle>
+            
+              
+            </ion-card-header>
+            
+          
+            <ion-card-content>
+              
                       
-                    </ion-item>
-                  </ion-col>
-              <ion-col size="12">
-                  
-                    <!-- <ion-item  *ngIf="!cNameCtrl.valid && cNameCtrl.touched"
-                    lines="none"
-                    >
-                        <p>Should be a valid username</p>
-                    </ion-item> -->
+                <h2>Payment Method</h2>
+                <ion-select (ionChange)="onSelectChange(selectedPayment)" 
+                  [(ngModel)]="selectedPayment"  name="payment"
+                  placeholder="Payment Method"
+                  interface="action-sheet"
+                >
+                
+                  <ion-select-option *ngFor="let payment of paymentSelection" [value]="payment">
+                    {{payment.type}} (-{{payment.discount}}%)
+                  </ion-select-option>
+          
+                </ion-select>
+                <div *ngIf="selectedPayment.type === '' ">
+                <h2> Please select a payment method </h2>
+                </div>
+          
+            
+              <h2>Total Price: </h2>
+              <h1>{{ totalFullPrice }} $CA</h1>
+              
+              <ion-button *ngIf="selectedPayment.type !== ''"  expand="block" (click) = "onStep0Next()">
+                Next
+              </ion-button>
+            
+            </ion-card-content>
+            
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div *ngIf="selectedTournaments && selectedTournaments !== undefined && selectedTournaments.length > 0">
+            <ion-item *ngFor="let selectedTournament of selectedTournaments">
+            
+              
+              <ion-label class="ion-text-center" >
+              {{ selectedTournament.player.firstName }} {{ selectedTournament.player.lastName }}
+              <div>#{{selectedTournament.tournament.index}} - {{selectedTournament.tournament.title}}</div>
+              </ion-label>
+              <ion-buttons slot="start">
+            
+                <ion-button [routerLink]="['/selection-list', selectedTournament.player._id]" routerDirection="forward">
+                <ion-icon name="close-circle"  ></ion-icon>
+              </ion-button>
+              </ion-buttons>
+              <ion-note slot="end" >
+                {{ selectedTournament.tournament.price }}$CA
+              </ion-note>
+              </ion-item>
+            </div>
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          <ion-item *ngIf="selectedPayment.type !== ''">
+            <ion-label class="ion-text-center" >Discount</ion-label>
+            <ion-note slot="end" >
+              - {{ selectedPayment.discount }}%
+            </ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label class="ion-text-center" >
+              <span class='priceStyle'>Total Price</span>
+            </ion-label>
+            <ion-note slot="end" >
+              <span class='priceStyle'>{{ totalFullPrice }}  $CA</span>
+            </ion-note>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+    </ion-slide>
+    <ion-slide>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+      <ion-card >
+        <ion-card-header>
+          <ion-card-title>Proceed Payment</ion-card-title>
+          <ion-card-subtitle>Price: {{ totalFullPrice }}$CA</ion-card-subtitle>
+ 
+        </ion-card-header>
         
+      
+        <ion-card-content>
+
+          <div *ngIf="selectedPayment.type === 'Manual Interac'">
+            <ion-checkbox #interactCheckbox ></ion-checkbox>
+          <p>I confirm Interact transfer of <b>{{ totalFullPrice }}$CA</b> will be done to <b>prestige@Mtlprestige.ca</b> within 48hours 
+          </p>
+          <h2>
+            After this step you won't be able to un-register, please contact prestige@Mtlprestige.ca for any request
+          </h2>
+                <ion-button *ngIf="interactCheckbox.checked" class="mainButton" mat-raised-button color="primary" (click)="onStep1Next()">Register</ion-button>
+      
+      
+          </div>
+          <div *ngIf="selectedPayment.type === 'Cheque'">
+            <ion-checkbox #chequeCheckbox ></ion-checkbox>
+            <p>I confirm cheque of {{ totalFullPrice }}$CA will be sent within 1 week to address:</p>
+            <h1>Prestige TT,Claude robillard,H2M2E7,Montreal</h1>
+            <h2>
+              After this step you won't be able to un-register, please contact prestige@Mtlprestige.ca for any request
+            </h2>
+            <ion-button *ngIf="chequeCheckbox.checked" class="mainButton" mat-raised-button color="primary" 
+            (click)="onStep1Next()">Register
+          </ion-button>
+        
+          </div>
+          <!-- <div *ngIf="selectedPayment.type === 'Credit Card'">
+  
+
+        
+          </div> -->
+    
+        </ion-card-content>
+        
+      </ion-card>
+    </ion-col>
+    </ion-row>
+    
+    <ion-row>
+    <ion-col>
+      <ion-card *ngIf="selectedPayment.type === 'Credit Card'" class="creditCardCard">
+        <ion-card-header>
+          <ion-card-title>Card Details</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <form #f="ngForm" (ngSubmit)="onStep1Next(f)">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                    
                       <ion-item>
-                        <ion-label position="floating">Card Number</ion-label>
+                        <ion-label position="floating">FirstName LastName</ion-label>
                         <ion-input type="text"
                         ngModel
-                        name="cNumber"
+                        name="cName"
                         required
-                        cNumber
-                        minlength='15'
-                        maxlength='17'
-                        #cNumberCtrl="ngModel"
+                        #cNameCtrl="ngModel"
+                        minlength="2"
                         ></ion-input>
                         
                       </ion-item>
+                    </ion-col>
+                <ion-col size="12">
+                    
+     
+          
+                        <ion-item>
+                          <ion-label position="floating">Card Number</ion-label>
+                          <ion-input type="text"
+                          ngModel
+                          name="cNumber"
+                          required
+                          cNumber
+                          minlength='15'
+                          maxlength='17'
+                          #cNumberCtrl="ngModel"
+                          ></ion-input>
+                          
+                        </ion-item>
+                    </ion-col>
+                    
+                       
+                        <ion-col size="3">
+                          <ion-item >
+                            <ion-label position="floating">MM</ion-label>
+                            <ion-input 
+                            type="tel"
+                            ngModel
+                            name="cExpMonth"
+                            required
+                            minlength='2'
+                            maxlength='2'
+                            #cExpMonthCtrl="ngModel"></ion-input>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col size="3">
+                          <ion-item >
+                            <ion-label position="floating">YYYY</ion-label>
+                            <ion-input 
+                            type="tel"
+                            ngModel
+                            name="cExpYear"
+                            required
+                            minlength='4'
+                            maxlength='4'
+                            #cExpYearCtrl="ngModel"></ion-input>
+                          </ion-item>
+                        </ion-col>
+                           <ion-col size="4" offset="2" >
+                        <ion-item>
+                          <ion-label position="floating">CVC</ion-label>
+                          <ion-input 
+                          type="text"
+                          ngModel
+                          name="cCvc"
+                          required
+                          minlength='3'
+                            maxlength='3'
+                          #cCVCCtrl="ngModel"></ion-input>
+                        </ion-item>
+                      </ion-col>
+                        <!-- <ion-item  *ngIf="!cCSVCtrl.valid && cCSVCtrl.touched"
+                        lines="none"
+                        >
+                            <p>Should be a valid CSV Number</p>
+                        </ion-item> -->
+                      
+                
+          
+              </ion-row>
+          
+              <ion-row>
+                  <ion-col size-sm="6" offset-sm="3">
+          
+                      <ion-button type="submit" color="primary" expand="block" fill="outline"
+                      [disabled]="!f.valid"
+                      > 
+                      Pay
+                    </ion-button>
+                                 
                   </ion-col>
                   
-                      <!-- <ion-item  *ngIf="!cNumberCtrl.valid && cNumberCtrl.touched"
-                      lines="none"
-                      >
-                          <p>Should be a valid card number</p>
-                      </ion-item> -->
-                      <!-- <ion-col size="7">
-                        <ion-item >
-                          <ion-label position="floating">ExpirationDate</ion-label>
-                          <ion-input 
-                          type="tel"
-                          ngModel
-                          name="cExp"
-                          required
-                          minlength="1"
-                          #cExpCtrl="ngModel"></ion-input>
-                        </ion-item>
-                      </ion-col> -->
-                      <ion-col size="3">
-                        <ion-item >
-                          <ion-label position="floating">MM</ion-label>
-                          <ion-input 
-                          type="tel"
-                          ngModel
-                          name="cExpMonth"
-                          required
-                          minlength='2'
-                          maxlength='2'
-                          #cExpMonthCtrl="ngModel"></ion-input>
-                        </ion-item>
-                      </ion-col>
-                      <ion-col size="3">
-                        <ion-item >
-                          <ion-label position="floating">YYYY</ion-label>
-                          <ion-input 
-                          type="tel"
-                          ngModel
-                          name="cExpYear"
-                          required
-                          minlength='4'
-                          maxlength='4'
-                          #cExpYearCtrl="ngModel"></ion-input>
-                        </ion-item>
-                      </ion-col>
-                      <!-- <ion-item  *ngIf="!cExpCtrl.valid && cExpCtrl.touched"
-                      lines="none"
-                      >
-                          <p>Should be a valid Expiration Date</p>
-                      </ion-item> -->
-                      <ion-col size="4" offset="2" >
-                      <ion-item>
-                        <ion-label position="floating">CVC</ion-label>
-                        <ion-input 
-                        type="text"
-                        ngModel
-                        name="cCvc"
-                        required
-                        minlength='3'
-                          maxlength='3'
-                        #cCVCCtrl="ngModel"></ion-input>
-                      </ion-item>
-                    </ion-col>
-                      <!-- <ion-item  *ngIf="!cCSVCtrl.valid && cCSVCtrl.touched"
-                      lines="none"
-                      >
-                          <p>Should be a valid CSV Number</p>
-                      </ion-item> -->
-                    
-              
+                </ion-row>
+            </ion-grid>
+          </form>
         
-            </ion-row>
-        
-            <ion-row>
-                <ion-col size-sm="6" offset-sm="3">
-        
-                    <ion-button type="submit" color="primary" expand="block" fill="outline"
-                    [disabled]="!f.valid"
-                    > 
-                    Pay with Stripe
-                  </ion-button>
-                               
-                </ion-col>
-                
-              </ion-row>
-          </ion-grid>
-        </form>
-      
-      </ion-card-content>
-    </ion-card>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    </ion-row>
+    </ion-grid>
+    </ion-slide>
+    <ion-slide>
 
-    <!-- <div id="card-element">
+      <ion-card >
+        <ion-card-header>
+          <ion-card-title>Confirmation</ion-card-title>
+          <ion-card-subtitle>Price: {{ finalPrice }} $CA</ion-card-subtitle>
+         
+          
+        </ion-card-header>
+        
       
-    </div> -->
+        <ion-card-content>
+          <div *ngIf="selectedPayment.type === 'Credit Card'">
+            <p *ngIf="!paymentResponse.success">Payment status: {{paymentResponse.message}}</p>
+      
+            <div *ngIf="paymentResponse.success">
+              <h3>Payment status: succesfull</h3>
+              <a href="{{paymentResponse.message}}" target="_blank">receipt link </a>
+            </div>
+          </div>
+      
+          <h3>Registrations aknowlegment</h3>
+          <div *ngFor="let response of serverReponses">
+            <p>registration: {{ response.message }}</p>
+            <p *ngIf="response.success" class="paymentOK" >Success</p>
+            <p *ngIf="!response.success" class="paymentKO">Failed</p>
+            <p *ngIf="!response.success" class="paymentKO">Error {{ response.error}}</p>
+           
+          </div>
+      
+            <ion-button mat-raised-button color="primary"  [routerLink]="['/registration-list']" >See my registrations</ion-button>
+            <ion-button mat-raised-button color="primary" [routerLink]="['/invoice-list']" >See my invoice</ion-button>
+   
+        </ion-card-content>
+        
+      </ion-card>
 
-    <!-- <div *ngIf="invalidError" style="color:red">
-      {{ invalidError.message }}
-    </div>
-  
-      <stripe-card
-      #stripeCard
-      (catch) = "onStripeError($event)"
-    
-      (tokenChange) = "setStripeToken($event,stepper)"
-      (sourceChange) = "setStripeSource($event)">
-    </stripe-card>
-  <br/> -->
-  <!-- <button mat-raised-button color="primary"  (click)="stripeCard.createToken()">Pay and Register</button>
-  <button mat-raised-button color="primary"  (click)="payWithStripe()">Pay with Stripe1</button> -->
-  <!-- <form novalidate (ngSubmit)="buy()" [formGroup]="stripeTest">
-    <input type="text" formControlName="name" placeholder="Florent letendre">
-    <div id="card-element" class="field"></div>
-    <button class="mainButton" mat-raised-button color="primary"  type="submit">
-      BUY
-    </button>
-  </form> -->
-  <!-- <div class="cardStyle">
-    <h2>Card Details</h2> -->
-    <!-- <form novalidate (ngSubmit)="buy()" [formGroup]="cFormGroup">
-      <input type="tel" formControlName="cardNumber" autocomplete="cc-number" id="cc-number" >
-      <input type="tel" formControlName="cardExpDate" autocomplete="cc-exp" id="cc-exp" >
-      <input type="tel" formControlName="cardCvv" autocomplete="cc-csc" id="cc-csc" >
-      <input type="text" formControlName="cardName">
-    </form> -->
-    <!-- <input type="tel" autocomplete="cc-number" id="cc-number" ccNum>
-    <input type="tel" autocomplete="cc-exp" id="cc-exp" ccExp>
-    <input type="tel" autocomplete="cc-cvc" id="cc-csc" ccCvc> -->
-  <!-- <form novalidate (ngSubmit)="buy()" [formGroup]="stripeTest">
-    <div class="cardStyle">
-    <input name="Name" matInput type="text" formControlName="name" placeholder="FirstName Lastname">
-  </div>
-    <div class="cardStyle">
-      <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
-    </div>
-    <button class="mainButton" mat-raised-button color="primary" type="submit">
-      BUY
-    </button>
-  </form> -->
-  <!-- <button class="mainButton" mat-raised-button color="primary" (click)="buyTest()" ></button> -->
-  
-  <!-- </div> -->
-  
-  </div>
-  </div>
-    </mat-step>
-  
-    <mat-step completed="false">
-      <ng-template matStepLabel>Confirmation</ng-template>
-      <h2>Confirmation</h2>
-      <div *ngIf="selectedPayment.type === 'Credit Card'">
-        <p *ngIf="!paymentResponse.success">Payment status: {{paymentResponse.message}}</p>
-  
-        <div *ngIf="paymentResponse.success">
-          <h3>Payment status: succesfull</h3>
-          <a href="{{paymentResponse.message}}" target="_blank">receipt link </a>
-        </div>
-      </div>
-  
-      <h3>Registrations aknowlegment</h3>
-      <div *ngFor="let response of serverReponses">
-        <p>registration: {{ response.message }}</p>
-        <p *ngIf="response.success" class="paymentOK" >Success</p>
-        <p *ngIf="!response.success" class="paymentKO">Failed</p>
-        <p *ngIf="!response.success" class="paymentKO">Error {{ response.error}}</p>
-        <!-- <mat-divider></mat-divider> -->
-      </div>
-  
-        <button mat-raised-button color="primary"  [routerLink]="['/registration-list']" >See my registrations</button>
-        <button mat-raised-button color="primary" [routerLink]="['/invoice-list']" >See my invoice</button>
-  
-  
-    </mat-step>
-  </mat-horizontal-stepper>
+    </ion-slide>
+  </ion-slides>
+
   
 </ion-content>

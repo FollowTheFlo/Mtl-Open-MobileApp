@@ -5,8 +5,9 @@ import { PlayersService } from '../players.service';
 import { RegistrationsService } from '../../registrations/registrations.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { NavigationService} from '../../navigation.service';
+import { NavigationService } from '../../navigation.service';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-player-list',
@@ -24,7 +25,8 @@ export class PlayerListPage implements OnInit, OnDestroy {
     public route: ActivatedRoute,
     private router: Router,
     public registrationsService: RegistrationsService,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private alertCtrl: AlertController,
   ) {}
 
   ionViewDidEnter() {
@@ -33,14 +35,20 @@ export class PlayerListPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log('PlayerListPage1 ionViewWillEnter');
-    this.playersSub = this.playersService.getPlayers().subscribe((players) => {
-      if (players.length === 0) {
-        //redirect to CreatePlayer if no player
-        this.router.navigate(['create']);
-      }
-      this.players = players;
-      this.isLoading = false;
-    });
+    this.playersSub = this.playersService.getPlayers().subscribe(
+      (players) => {
+        if (players.length === 0) {
+          //redirect to CreatePlayer if no player
+          this.router.navigate(['create']);
+        }
+        this.players = players;
+        this.isLoading = false;
+      },
+      (error) => {
+        this.isLoading = false;
+        this.showAlert('Player list Error', error);
+      },
+    );
 
     this.regSub = this.registrationsService
       .getRegistrations()
@@ -48,7 +56,7 @@ export class PlayerListPage implements OnInit, OnDestroy {
   }
 
   // ionViewWillEnter() {
-    
+
   //   console.log('PlayerListPage1 ionViewWillEnter');
   //   this.playersSub = this.playersService.getPlayers().subscribe((players) => {
   //     if (players.length === 0) {
@@ -64,7 +72,7 @@ export class PlayerListPage implements OnInit, OnDestroy {
   //     .subscribe((reg) => console.log('getRegistrations obs has run'));
   // }
 
-  // ionViewDidLeave() { 
+  // ionViewDidLeave() {
   //   console.log('PlayerListComponent, ionViewDidLeave');
   //   if (this.playersSub) {
   //     this.playersSub.unsubscribe();
@@ -73,7 +81,7 @@ export class PlayerListPage implements OnInit, OnDestroy {
   //     this.regSub.unsubscribe();
   //   }
   // }
-  
+
   ngOnDestroy() {
     console.log('PlayerListComponent, OnDestroy');
     if (this.playersSub) {
@@ -84,8 +92,42 @@ export class PlayerListPage implements OnInit, OnDestroy {
     }
   }
 
+  doRefresh(event) {
+    console.log('Begin async operation');
+
+    // setTimeout(() => {
+    //   console.log('Async operation has ended');
+    //   event.target.complete();
+    // }, 2000);
+
+    this.playersSub = this.playersService.getPlayers().subscribe(
+      (players) => {
+        if (players.length === 0) {
+          //redirect to CreatePlayer if no player
+          this.router.navigate(['create']);
+        }
+        this.players = players;
+        event.target.complete();
+        //this.isLoading = false;
+      },
+      (error) => {
+        event.target.complete();
+        this.showAlert('Player list Error', error);
+      },
+    );
+
+    this.regSub = this.registrationsService.getRegistrations().subscribe((reg) => {
+      console.log('getRegistrations obs has run');
+    });
+  }
+
   onCreatePlayer() {
     console.log('onCreatePlayer');
     this.router.navigate(['/player-create']);
+  }
+  private showAlert(head: string, message: string) {
+    this.alertCtrl
+      .create({ header: 'Could not fetch player list', message: message, buttons: ['okay'] })
+      .then((alertEl) => alertEl.present());
   }
 }
