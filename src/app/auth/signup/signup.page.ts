@@ -4,7 +4,7 @@ import { AuthService } from '../auth.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Router } from '@angular/router';
 import { LoadingController, AlertController } from '@ionic/angular';
-import { NavigationService} from '../../navigation.service';
+import { NavigationService } from '../../navigation.service';
 
 // import {MatDialog} from '@angular/material/dialog';
 // import { ModalService } from '../../modal/modal.service';
@@ -16,11 +16,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnDestroy {
-   isLoading = false;
+  isLoading = false;
   private routeSub: Subscription;
   private authSub: Subscription;
-  
-  
 
   constructor(
     private authService: AuthService,
@@ -28,13 +26,11 @@ export class SignupPage implements OnDestroy {
     public router: Router,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
-    private navigationService: NavigationService
-  ) {
-    
-  }
+    private navigationService: NavigationService,
+  ) {}
 
   ionViewDidEnter() {
-    this.navigationService.setNavLink('Signup');
+    this.navigationService.setNavLink('SIGNUP');
   }
 
   ngOnDestroy() {
@@ -46,16 +42,14 @@ export class SignupPage implements OnDestroy {
     }
   }
 
-
-
   onFbSignup() {
     console.log('onFbLogin');
     //this.isLoading = true;
     this.loadingCtrl.create({ keyboardClose: true, message: 'Signing-up with facebook info...' }).then((loadingEl) => {
       loadingEl.present();
       this.authService.fbSignup().subscribe(
-        response => {
-         // this.isLoading = false;
+        (response) => {
+          // this.isLoading = false;
           loadingEl.dismiss();
           if (response) {
             //this.showAlert('success');
@@ -81,8 +75,8 @@ export class SignupPage implements OnDestroy {
 
     this.loadingCtrl.create({ keyboardClose: true, message: 'Signup...' }).then((loadingEl) => {
       loadingEl.present();
-      console.log('signup credentials', form.value.username,form.value.email, form.value.password);
-      this.authSub = this.authService.signup(form.value.username,form.value.email, form.value.password).subscribe(
+      console.log('signup credentials', form.value.username, form.value.email, form.value.password);
+      this.authSub = this.authService.signup(form.value.username, form.value.email, form.value.password).subscribe(
         (response) => {
           this.isLoading = false;
           loadingEl.dismiss();
@@ -90,19 +84,19 @@ export class SignupPage implements OnDestroy {
             this.router.navigate(['/player-list']);
             //this.showAlert('success');
           } else {
-            this.showAlert('Signup Error','Signup Error');
+            this.showAlert('Signup Error', 'Signup Error');
             // this.modalService.openModal('Error', 'Login Error', 'Login Error');
           }
         },
         (error) => {
           loadingEl.dismiss();
           this.isLoading = false;
-          this.showAlert('Signup Error',error);
+          this.showAlert('Signup Error', error);
           //this.modalService.openModal('Error', 'Login Error', error);
         },
       );
     });
-  };
+  }
 
   // logout() {
   //   console.log("onLogout");
@@ -110,8 +104,6 @@ export class SignupPage implements OnDestroy {
 
   // }
   private showAlert(head: string, message: string) {
-    this.alertCtrl
-      .create({ header: head, message: message, buttons: ['okay'] })
-      .then((alertEl) => alertEl.present());
+    this.alertCtrl.create({ header: head, message: message, buttons: ['okay'] }).then((alertEl) => alertEl.present());
   }
 }

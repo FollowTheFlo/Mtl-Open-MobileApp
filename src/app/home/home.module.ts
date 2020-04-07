@@ -5,14 +5,16 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
-import { NavigationFooterModule } from './../navigation-footer.module';
+import { TranslationModule } from '../translation.module';
+//import { PopupChartsPageModule } from '../shared-components/popup-charts/popup-charts.module';
 
 @NgModule({
   imports: [
-    NavigationFooterModule,
     CommonModule,
     FormsModule,
     IonicModule,
+    TranslationModule,
+    //PopupChartsPageModule,
     RouterModule.forChild([
       {
         path: '',

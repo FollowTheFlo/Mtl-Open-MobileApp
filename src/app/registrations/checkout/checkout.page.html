@@ -3,7 +3,7 @@
 
 <ion-content>
 
-  <ion-slides pager="false" #slides>
+  <ion-slides #slides >
     <ion-slide>
     <ion-grid>
       <ion-row>
@@ -33,7 +33,7 @@
           
                 </ion-select>
                 <div *ngIf="selectedPayment.type === '' ">
-                <h2> Please select a payment method </h2>
+                <h2 class="paymentKO"> Please select a payment method </h2>
                 </div>
           
             
@@ -51,6 +51,9 @@
       </ion-row>
       <ion-row>
         <ion-col>
+          <div *ngIf="!selectedTournaments || selectedTournaments === undefined || selectedTournaments.length === 0">
+            No selection
+          </div>
           <div *ngIf="selectedTournaments && selectedTournaments !== undefined && selectedTournaments.length > 0">
             <ion-item *ngFor="let selectedTournament of selectedTournaments">
             

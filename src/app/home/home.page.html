@@ -1,21 +1,116 @@
-<ion-header [translucent]="true">
-  <ion-toolbar >
-    <ion-buttons slot="start">
-      <ion-menu-button menu="m1"></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Home</ion-title>
-  </ion-toolbar>
+<ion-header>
+
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  
+  <ion-slides class="homeSlides" pager="true"  (ionSlideDidChange)="slideChanged()">
+    <ion-slide >
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>{{'CLUB_TT' | translate}}</ion-card-subtitle>
+          <ion-card-title>{{'MTL_OPEN_TITLE' | translate}}</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <img src="/assets/img/logoPrestige.png">
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide >
+      <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>AvailabilityChart</ion-card-subtitle>
+        
+      </ion-card-header>
+    
+      <ion-card-content>
+        <!-- <button (click)=createBarChart()>Refresh</button> -->
+        <canvas #tourChart></canvas>
+      </ion-card-content>
+    </ion-card>
+    
+    </ion-slide>
+    <ion-slide>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>{{'WHERE_WHEN' | translate}}</ion-card-subtitle>
+          <ion-card-title>{{'WHERE_WHEN' | translate}}</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <h1>Complexe Sportif Claude Robillard</h1>
+          <h3>1000 Avenue Émile-Journault, Montréal, QC H2M 2E7</h3>
+          <a [routerLink]="['/login']" href="https://goo.gl/maps/KmfFHFW99jT6hMJk8">Open the map</a>
+        
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  </ion-slides>
+    <ion-item-divider>
+      <div style="width: 100%; text-align: center;">
+            {{'DAY' | translate}} 1   
+      </div>
+    </ion-item-divider>
+  <ion-spinner *ngIf="isLoading === true"></ion-spinner>
+  <ion-item-group *ngIf="isLoading === false && playerTournamentsDay1 && playerTournamentsDay1.length > 0">
+
+    
+    <ion-item (click)="presentModal(tournament._id)" *ngFor="let tournament of playerTournamentsDay1">
+
+      <ion-buttons>
+        <ion-button >
+            <ion-icon name="information-circle"  ></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      
+      <ion-label class="ion-text-center" *ngIf="tournament.isFull">
+        <span class='redText'> {{ tournament.title  }}</span>
+      </ion-label>
+      <ion-note class="red" *ngIf="tournament.isFull" slot="end" >{{'FULL' | translate}}</ion-note>
+
+      <ion-label class="ion-text-center" *ngIf="!tournament.isFull"> 
+        {{'CATEGORY' | translate}}  {{ tournament.title  }} 
+      </ion-label>
+      <ion-note *ngIf="!tournament.isFull" slot="end" >
+        {{ tournament.maxPlayers - tournament.registrationsCount }} {{'LEFT' | translate}}
+      </ion-note>
+      
+      
+      </ion-item>
+      
+  </ion-item-group>
+  <ion-item-divider>
+    <div style="width: 100%; text-align: center;">{{'DAY' | translate}} 2</div>
+  </ion-item-divider>
+  <ion-spinner *ngIf="isLoading === true"></ion-spinner>
+  <ion-item-group  *ngIf="isLoading === false &&  playerTournamentsDay2 && playerTournamentsDay2.length > 0">
+ 
+    <ion-item (click)="presentModal(tournament._id)" *ngFor="let tournament of playerTournamentsDay2">
+  
+      <ion-buttons>
+        <ion-button (click)="presentModal(tournament._id)">
+            <ion-icon name="information-circle"  ></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      
+      
+        <ion-label class="ion-text-center" *ngIf="tournament.isFull">
+          <span class='redText'> {{'CATEGORY' | translate}} {{ tournament.title  }}</span>
+        </ion-label>
+        <ion-note class="red" *ngIf="tournament.isFull" slot="end" >{{'FULL' | translate}}</ion-note>
+        
+
+
+
+      <ion-label class="ion-text-center" *ngIf="!tournament.isFull"> {{ tournament.title  }} </ion-label>
+      <ion-note *ngIf="!tournament.isFull" slot="end" >
+        {{ tournament.maxPlayers - tournament.registrationsCount }} {{'LEFT' | translate}}
+      </ion-note>
+              
+      </ion-item>
+
+  </ion-item-group>
+
 </ion-content>

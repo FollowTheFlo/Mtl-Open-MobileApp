@@ -40,11 +40,10 @@ export class TournamentListPage implements OnInit, OnDestroy {
   }
 
   ionViewDidEnter() {
-    this.navigationService.setNavLink('Tournaments');
+    this.navigationService.setNavLink('TOURNAMENTS');
   }
 
   ngOnInit() {
-    this.navigationService.setNavLink('Tournaments');
     this.isAuth = this.authService.getIsAuth();
 
     this.authSub = this.tournamentsService.getTournaments().subscribe((tournaments) => {

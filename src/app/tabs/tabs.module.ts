@@ -8,15 +8,10 @@ import { TabsPageRoutingModule } from './tabs-routing.module';
 
 import { TabsPage } from './tabs.page';
 import { PopupModule } from './../shared-components/popup/popup.module';
+import { TranslationModule } from '../translation.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    TabsPageRoutingModule,
-    PopupModule
-  ],
-  declarations: [TabsPage]
+  imports: [CommonModule, FormsModule, IonicModule, TabsPageRoutingModule, PopupModule, TranslationModule],
+  declarations: [TabsPage],
 })
 export class TabsPageModule {}

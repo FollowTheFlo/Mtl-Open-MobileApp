@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { RegistrationsService } from '../registrations.service';
 import { StripeToken } from 'stripe-angular';
 import { StripeSource } from 'stripe-angular/StripeTypes';
@@ -21,7 +21,20 @@ import { IonSlides } from '@ionic/angular';
 export class CheckoutPage implements OnInit, OnDestroy {
   @ViewChild(MatHorizontalStepper) stepper: MatHorizontalStepper;
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
-  @ViewChild('slides', { static: true }) slides: IonSlides;
+  //@ViewChild('slides') slideRef: ElementRef;
+  @ViewChild('slides', { static: false }) slides: IonSlides;
+
+  // slides: IonSlides;
+
+  // @ViewChild(IonSlides, {static: false}) set slidesvc(slides) {
+  //   this.slides = slides;
+  // }
+
+  // protected mySlideOptions = {
+  //   initialSlide: 0,
+  //   loop: false,
+  //   pager: true
+  // };
 
   // elements: Elements;
   // card: StripeElement;
@@ -108,8 +121,12 @@ export class CheckoutPage implements OnInit, OnDestroy {
 
   onStep0Next() {
     console.log('onStep0Next');
+    //const swiper = (this.slides as any).el.swiper;
+
+    //console.log('onStep0Nextswiper:',swiper);
     this.slides.lockSwipeToNext(false);
     this.slides.slideTo(1, 500);
+
     this.slides.lockSwipeToNext(true);
   }
   onStep1Next(form?: NgForm) {
@@ -133,9 +150,9 @@ export class CheckoutPage implements OnInit, OnDestroy {
 
   slideChanged(e: any) {
     console.log('slideChanged');
-    this.slides.getActiveIndex().then((index: number) => {
-      console.log(index);
-    });
+    // this.slides.getActiveIndex().then((index: number) => {
+    //   console.log(index);
+    // });
   }
 
   payWithStripe(form: NgForm) {

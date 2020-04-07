@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { CheckoutPageRoutingModule } from './checkout-routing.module';
 
 import { CheckoutPage } from './checkout.page';
-import { MaterialModule } from '../../material.module';
 
 @NgModule({
   imports: [
@@ -15,13 +14,11 @@ import { MaterialModule } from '../../material.module';
     FormsModule,
     IonicModule,
     CheckoutPageRoutingModule,
-    MaterialModule,
-    FormsModule, 
-    ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
     // StripeModule
-    
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  declarations: [CheckoutPage]
+  // schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  declarations: [CheckoutPage],
 })
 export class CheckoutPageModule {}

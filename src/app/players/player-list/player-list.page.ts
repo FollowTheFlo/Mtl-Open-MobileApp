@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { NavigationService } from '../../navigation.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { TranslationService } from '../../translation.service';
 
 @Component({
   selector: 'app-player-list',
@@ -30,7 +31,7 @@ export class PlayerListPage implements OnInit, OnDestroy {
   ) {}
 
   ionViewDidEnter() {
-    this.navigationService.setNavLink('Players List');
+    this.navigationService.setNavLink('PLAYERS');
   }
 
   ngOnInit() {

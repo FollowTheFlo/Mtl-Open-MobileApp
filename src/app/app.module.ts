@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
-import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -16,31 +16,39 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxStripeModule } from 'ngx-stripe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Stripe } from '@ionic-native/stripe/ngx';
-//import { NavigationFooterComponent } from './shared-components/navigation-footer/navigation-footer.component';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
-
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [ BrowserModule,
+  imports: [
+    BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    GraphQLModule, 
+    GraphQLModule,
     HttpClientModule,
     BrowserAnimationsModule,
     CommonModule,
     NgxStripeModule.forRoot('pk_test_YcpYu1bpUhiX3j4NS4OdpngK00zA3zscJ3'),
     FormsModule,
-    ReactiveFormsModule    
-    
+    ReactiveFormsModule,
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient],
+      },
+    }),
   ],
-    
-  providers: [StatusBar, SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Facebook,
-    Stripe
-  ],
+
+  providers: [StatusBar, SplashScreen, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, Facebook, Stripe],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}

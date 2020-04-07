@@ -7,12 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
-//import { AppModule } from './../../app.module';
-//import { NavigationFooterModule } from './../../navigation-footer.module';
-// import { PopupModule } from './../../shared-components/popup/popup.module';
+import { TranslationModule } from '../../translation.module';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, LoginPageRoutingModule],
+  imports: [CommonModule, FormsModule, IonicModule, LoginPageRoutingModule, TranslationModule],
   declarations: [LoginPage],
 })
 export class LoginPageModule {}

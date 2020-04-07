@@ -5,8 +5,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Router } from '@angular/router';
 import { LoadingController, AlertController, PopoverController } from '@ionic/angular';
 import { PopupComponent } from './../../shared-components/popup/popup.component';
-import { NavigationService} from '../../navigation.service';
-
+import { NavigationService } from '../../navigation.service';
 
 // import {MatDialog} from '@angular/material/dialog';
 // import { ModalService } from '../../modal/modal.service';
@@ -18,11 +17,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit, OnDestroy {
-   isLoading = false;
+  isLoading = false;
   private routeSub: Subscription;
   private authSub: Subscription;
-
-  
 
   constructor(
     private authService: AuthService,
@@ -31,32 +28,31 @@ export class LoginPage implements OnInit, OnDestroy {
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     public popoverCtrl: PopoverController,
-    private navigationService: NavigationService
-  ) {
-    
-  }
+    private navigationService: NavigationService,
+  ) {}
   async presentPopover(ev: any) {
     console.log('presentPopover');
     const popover = await this.popoverCtrl.create({
       component: PopupComponent,
       event: ev,
-      translucent: true
+      translucent: true,
     });
     return await popover.present();
   }
 
   ionViewDidEnter() {
-    this.navigationService.setNavLink('Login');
+    this.navigationService.setNavLink('LOGIN');
   }
 
   ngOnInit() {
-        // this.translate.use('fr');
+    // this.translate.use('fr');
     //this.authService.clearAuthData();
-        this.routeSub = this.route.paramMap.subscribe((paramMap: ParamMap) => {
+    this.routeSub = this.route.paramMap.subscribe((paramMap: ParamMap) => {
       console.log('onLogout1 param logout: ', paramMap);
       console.log('onLogout2 param logout: ', paramMap.has('logout:'));
       console.log('onLogout3 param logout: ', paramMap.keys);
       if (paramMap.has('logout')) {
+        this.navigationService.setNavLink('LOGOUT');
         console.log('onLogout4 param logout');
         this.authService.logout();
       }
@@ -72,16 +68,14 @@ export class LoginPage implements OnInit, OnDestroy {
     }
   }
 
-
-
   onFbLogin() {
     console.log('onFbLogin');
     //this.isLoading = true;
     this.loadingCtrl.create({ keyboardClose: true, message: 'logging in...' }).then((loadingEl) => {
       loadingEl.present();
       this.authService.fbLogin().subscribe(
-        response => {
-         // this.isLoading = false;
+        (response) => {
+          // this.isLoading = false;
           loadingEl.dismiss();
           if (response) {
             //this.showAlert('success');
@@ -116,19 +110,19 @@ export class LoginPage implements OnInit, OnDestroy {
             this.router.navigate(['/player-list']);
             //this.showAlert('success');
           } else {
-            this.showAlert('Login Error','Login Error');
+            this.showAlert('Login Error', 'Login Error');
             // this.modalService.openModal('Error', 'Login Error', 'Login Error');
           }
         },
         (error) => {
           loadingEl.dismiss();
           this.isLoading = false;
-          this.showAlert('Login Error',error);
+          this.showAlert('Login Error', error);
           //this.modalService.openModal('Error', 'Login Error', error);
         },
       );
     });
-  };
+  }
 
   // logout() {
   //   console.log("onLogout");

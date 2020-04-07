@@ -5,8 +5,8 @@ import { PlayersService } from '../players.service';
 import { Router } from '@angular/router';
 import { GraphqlService } from '../../graphql/graphql.service';
 import { AuthService } from '../../auth/auth.service';
-import { LoadingController, AlertController } from '@ionic/angular';
-import { NavigationService} from '../../navigation.service';
+import { LoadingController, AlertController, NavController } from '@ionic/angular';
+import { NavigationService } from '../../navigation.service';
 
 @Component({
   selector: 'app-player-create',
@@ -14,23 +14,23 @@ import { NavigationService} from '../../navigation.service';
   styleUrls: ['./player-create.page.scss'],
 })
 export class PlayerCreatePage implements OnInit {
-
   userEmail = '';
-  constructor(public playersService: PlayersService,
-              public router: Router,
-              public graphqlService: GraphqlService,
-              public authService: AuthService,
-              private loadingCtrl: LoadingController,
-              private alertCtrl: AlertController,
-              private navigationService: NavigationService
-              ) { }
+  constructor(
+    public playersService: PlayersService,
+    public router: Router,
+    public graphqlService: GraphqlService,
+    public authService: AuthService,
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController,
+    private navigationService: NavigationService,
+    private navController: NavController,
+  ) {}
   ionViewDidEnter() {
     this.navigationService.setNavLink('Fill Details');
   }
 
   ngOnInit() {
-    
-    console.log('this.playersService.isPlayerListEmpty: ',this.playersService.isPlayerListEmpty())
+    console.log('this.playersService.isPlayerListEmpty: ', this.playersService.isPlayerListEmpty());
     if (this.playersService.isPlayerListEmpty()) {
       if (this.authService.currentUser !== undefined && this.authService.currentUser.email !== undefined) {
         this.userEmail = this.authService.currentUser.email;
@@ -46,36 +46,29 @@ export class PlayerCreatePage implements OnInit {
     this.loadingCtrl.create({ keyboardClose: true, message: 'Creating player...' }).then((loadingEl) => {
       loadingEl.present();
 
-    this.playersService.createPlayer(
-      form.value.firstName,
-      form.value.lastName,
-      form.value.email,
-      form.value.ranking
+      this.playersService
+        .createPlayer(form.value.firstName, form.value.lastName, form.value.email, form.value.ranking)
+        .subscribe((userData) => {
+          loadingEl.dismiss();
+          console.log('createPlayer result: ', userData);
+          if (!userData) {
+            return;
+          }
+          const player: Player = userData;
+          this.graphqlService.resetStore().then((res) => {
+            console.log('Apollo Store Cache reset:', res);
+          });
 
-    ).
-    subscribe( userData => {
-      loadingEl.dismiss();
-      console.log('createPlayer result: ', userData);
-      if (!userData) {
-       
-        return;
-      }
-      const player: Player = userData;
-      this.graphqlService.resetStore().then( res => {
-        console.log('Apollo Store Cache reset:', res);
-      });
-
-      this.router.navigate(['player-list']);
-
-
+          this.playersService.addLocalPlayer(player);
+          console.log('onAddPlayer player', player);
+          console.log('onAddPlayer link', '/selection-list/' + player._id);
+          //this.router.navigateByUrl('/selection-list/' + player._id);
+          this.navController.navigateForward('/tabs/selection-list/' + player._id);
+        });
     });
-  });
   }
 
   private showAlert(head: string, message: string) {
-    this.alertCtrl
-      .create({ header: head, message: message, buttons: ['okay'] })
-      .then((alertEl) => alertEl.present());
+    this.alertCtrl.create({ header: head, message: message, buttons: ['okay'] }).then((alertEl) => alertEl.present());
   }
-
 }

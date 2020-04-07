@@ -29,17 +29,17 @@
 
       <ion-tab-button tab="player-list" [disabled]="!isAuth">
         <ion-icon name="people"></ion-icon>
-           <ion-label>Players</ion-label>
+           <ion-label>{{'PLAYERS' | translate}}</ion-label>
       </ion-tab-button>
       
       <ion-tab-button  tab="invoice-list" [disabled]="!isAuth">
         <ion-icon name="logo-usd"></ion-icon>
-        <ion-label>Invoice</ion-label>
+        <ion-label>{{'INVOICES' | translate}}</ion-label>
       </ion-tab-button>
 
       <ion-tab-button tab="checkout" [disabled]="!isAuth">
         <ion-icon name="cart" ></ion-icon>
-            <ion-label>Cart</ion-label>
+            <ion-label>{{'CART' | translate}}</ion-label>
             <ion-badge *ngIf="cartItemsNumber > 0">{{cartItemsNumber}}</ion-badge>
       </ion-tab-button>
 

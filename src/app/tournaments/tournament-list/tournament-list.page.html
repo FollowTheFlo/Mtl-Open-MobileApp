@@ -60,7 +60,7 @@
             Day 1   
       </div>
     </ion-item-divider>
-  <ion-item-group *ngIf="playerTournamentsDay1.length > 0">
+  <ion-item-group *ngIf="playerTournamentsDay1 && playerTournamentsDay1.length > 0">
 
     <ion-item *ngFor="let tournament of playerTournamentsDay1">
 
@@ -87,7 +87,7 @@
   <ion-item-divider>
     <div style="width: 100%; text-align: center;">Day 2</div>
   </ion-item-divider>
-  <ion-item-group *ngIf="playerTournamentsDay2.length > 0">
+  <ion-item-group *ngIf="playerTournamentsDay2 && playerTournamentsDay2.length > 0">
  
     <ion-item *ngFor="let tournament of playerTournamentsDay2">
   

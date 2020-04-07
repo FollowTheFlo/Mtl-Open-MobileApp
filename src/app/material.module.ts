@@ -1,8 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS } from '@angular/material';
-
-
 import {
   MatInputModule,
   MatCardModule,
@@ -18,9 +14,9 @@ import {
   MatDialogModule,
   MatTabsModule,
   MatGridListModule,
-  MatButtonToggleModule
-} from "@angular/material";
- 
+  MatButtonToggleModule,
+} from '@angular/material';
+
 @NgModule({
   exports: [
     MatInputModule,
@@ -37,7 +33,7 @@ import {
     MatDialogModule,
     MatTabsModule,
     MatGridListModule,
-    MatButtonToggleModule
-  ]
+    MatButtonToggleModule,
+  ],
 })
 export class MaterialModule {}
