@@ -2,9 +2,8 @@ import { Registration } from '../../models/registration.model';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RegistrationsService } from '../registrations.service';
-import { Subscription } from "rxjs";
-import { NavigationService} from '../../navigation.service';
-
+import { Subscription } from 'rxjs';
+import { NavigationService } from '../../navigation.service';
 
 @Component({
   selector: 'app-registration-list',
@@ -20,7 +19,7 @@ export class RegistrationListPage implements OnInit, OnDestroy {
   private registrationsSub: Subscription;
   private tournamentsSub: Subscription;
 
-  constructor(public registrationsService: RegistrationsService, private navigationService: NavigationService) { }
+  constructor(public registrationsService: RegistrationsService, private navigationService: NavigationService) {}
 
   ngOnDestroy() {
     if (this.registrationsSub) {
@@ -32,31 +31,25 @@ export class RegistrationListPage implements OnInit, OnDestroy {
   }
 
   ionViewDidEnter() {
-    this.navigationService.setNavLink('Cart');
+    this.navigationService.setNavLink('REGISTER');
   }
 
   ngOnInit() {
     console.log('RegistrationListPage: ngOnInit');
     this.isRegLoading = true;
     this.isSelLoading = true;
-    this.registrationsSub = this.registrationsService.getRegistrations()
-    .subscribe(registrations => {
+    this.registrationsSub = this.registrationsService.getRegistrations().subscribe((registrations) => {
       this.isRegLoading = false;
       //console.log('registrations',registrations);
-      this.registrations = registrations; });
+      this.registrations = registrations;
+    });
 
-    this.tournamentsSub = this.registrationsService.selectedTournaments$.
-    subscribe(selections => {
+    this.tournamentsSub = this.registrationsService.selectedTournaments$.subscribe((selections) => {
       console.log('in getTempRegistrations', selections);
       this.isSelLoading = false;
       this.selectedTournaments = this.registrationsService.getTempRegistrations();
 
-
       console.log('in getTempRegistrations2', this.selectedTournaments);
-      })
-
+    });
   }
-
-
 }
-

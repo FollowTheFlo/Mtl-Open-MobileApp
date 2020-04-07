@@ -18,7 +18,7 @@ export class InvoiceListPage implements OnInit, OnDestroy {
   constructor(public registrationsService: RegistrationsService, private navigationService: NavigationService) {}
 
   ionViewDidEnter() {
-    this.navigationService.setNavLink('Invoices');
+    this.navigationService.setNavLink('INVOICES');
   }
 
   ngOnInit() {
